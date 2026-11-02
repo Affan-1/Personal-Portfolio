@@ -1,0 +1,238 @@
+/* =====================================================
+   Global CSS — Variables, base styles, utilities
+   ===================================================== */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ---- CSS Custom Properties ---- */
+:root {
+  --bg-primary: #0F1222;
+  --bg-secondary: #151A2E;
+  --bg-card: #1A2038;
+  --border-subtle: #252B45;
+  --accent-indigo: #6366F1;
+  --accent-violet: #8B5CF6;
+  --accent-teal: #2DD4BF;
+  --accent-amber: #F59E0B;
+  --text-primary: #FFFFFF;
+  --text-body: #E5E7EB;
+  --text-muted: #9CA3AF;
+  --font-heading: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+.light {
+  --bg-primary: #F8F7F5;
+  --bg-secondary: #F0EEE9;
+  --bg-card: #FFFFFF;
+  --border-subtle: #E5E7EB;
+  --text-primary: #111827;
+  --text-body: #374151;
+  --text-muted: #6B7280;
+}
+
+/* ---- Base Reset ---- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: #6366F1 #151A2E;
+}
+
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: var(--bg-secondary); }
+html::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #6366F1, #8B5CF6);
+  border-radius: 3px;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background-color: var(--bg-primary);
+  color: var(--text-body);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ---- Noise/Grain texture overlay ---- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* ---- Typography ---- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--text-primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+/* ---- Gradient text utility ---- */
+.gradient-text {
+  background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #2DD4BF 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---- Glass card ---- */
+.glass-card {
+  background: rgba(26, 32, 56, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 16px;
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+/* ---- Gradient blob backgrounds ---- */
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  animation: blob 7s infinite;
+}
+
+/* ---- Section padding utility ---- */
+.section-padding {
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+}
+
+/* ---- Animated marquee container ---- */
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
+
+/* ---- Custom cursor ---- */
+.custom-cursor {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* ---- Scroll progress bar ---- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #6366F1, #8B5CF6, #2DD4BF);
+  z-index: 9999;
+  transform-origin: left;
+}
+
+/* ---- Floating WhatsApp ---- */
+.whatsapp-btn {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+/* ---- Browser mockup frame ---- */
+.browser-frame {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.browser-bar {
+  background: #1e2640;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.browser-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+/* ---- Timeline ---- */
+.timeline-line {
+  background: linear-gradient(180deg, #6366F1, #8B5CF6, #2DD4BF);
+}
+
+/* ---- Reduce motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .marquee-track { animation: none; }
+  .blob { animation: none; }
+}
+
+/* ---- Lightbox ---- */
+.lightbox-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(8px);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---- Loading screen ---- */
+.loader-bar {
+  background: linear-gradient(90deg, #6366F1, #8B5CF6, #2DD4BF, #6366F1);
+  background-size: 200% 100%;
+  animation: gradientShift 1.5s ease infinite;
+}
+
+/* ---- Skeleton loader ---- */
+.skeleton {
+  background: linear-gradient(90deg, #1A2038 25%, #252B45 50%, #1A2038 75%);
+  background-size: 200% 100%;
+  animation: gradientShift 1.5s ease infinite;
+  border-radius: 8px;
+}
+
+/* ---- Focus visible for accessibility ---- */
+*:focus-visible {
+  outline: 2px solid #6366F1;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
